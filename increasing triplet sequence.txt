@@ -1,0 +1,24 @@
+class Solution
+{
+public:
+    bool increasingTriplet(vector<int> &nums)
+    {
+
+        // Here the logic is very easy but thinking of this type of logic is difficult
+        // create two integers with maximum value after that dry run it you can undersand perfectly.
+        int n1 = INT_MAX, n2 = INT_MAX;
+
+        for (auto a : nums)
+        {
+            if (a <= n1)
+                n1 = a;
+
+            else if (a <= n2)
+                n2 = a;
+
+            else
+                return true;
+        }
+        return false;
+    }
+};
