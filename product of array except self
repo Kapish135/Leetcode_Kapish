@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+
+
+        //Dry run kro 2 min me smj aa jayegaa
+        //but approach sochna thora mushkil hh
+        vector<int>pref(nums.size());
+        vector<int>suff(nums.size());
+        pref[0] = 1;
+        suff[0] = 1;
+        for(int i=1;i<nums.size();i++) {
+            pref[i] = pref[i-1] * nums[i-1];
+
+            suff[i] = suff[i-1] * nums[nums.size()-i];  
+        }
+
+        for(int i=0;i<nums.size();i++){
+            nums[i] = pref[i] * suff[nums.size()-i-1];
+        }
+        return nums;
+    }
+};
