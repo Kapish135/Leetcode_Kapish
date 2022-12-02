@@ -1,0 +1,69 @@
+class Solution {
+public:
+    string largestPalindromic(string num) {
+
+        //Bhot muskil se solve huaa 🥲🤣
+        //End time pe TLE aa rhii thi Then if condition lgayi 2😅 chl gyaa kamal hh 🤣....
+        //38 or 39 ki if condition Awesome....❤️👌
+
+        //Subh se kr tha 4:30 hua sham ko itna time le gya ye
+        unordered_map<int,int>m;
+        for(auto a:num) m[a]++;
+
+        string ans="";
+        char carry = '0';
+        bool flag=false;
+        for(auto a:m){
+            if(a.second % 2 == 1){
+                while(a.second-1 > 0){
+                    ans+=a.first;
+                    a.second--;
+                }
+                if(carry <= a.first){
+                    carry=a.first;
+                    flag = true;
+                }
+            }
+            else if(a.second % 2 == 0) {
+                while(a.second >0){
+                    ans+=a.first;
+                    a.second--;
+                }
+            }            
+        }
+        ans = flag == true ? ans + carry :ans;
+        typedef pair<char,int> pi;
+        m.clear();
+        for(auto a:ans) m[a]++;
+        priority_queue<pi, vector<pi>, greater<pi>>q;
+        for(auto a:m) q.push({a.first,a.second});
+        if(q.size() == 1 && q.top().first != '0') return ans;
+        else if(q.size() == 1 && q.top().first =='0') return "0";
+        ans = "";
+        while(!q.empty()){
+            int f = q.top().second;
+            if(f % 2 == 1){
+                while(f-1 > 0){
+                    ans.insert(0,1,q.top().first);
+                    ans.push_back(q.top().first);
+                    f -=2;
+                }
+                ans.insert(ans.size()/2,1,q.top().first);
+            }
+            else if(f%2==0){
+                while(f > 0){
+                    ans.insert(0,1,q.top().first);
+                    ans.push_back(q.top().first);
+                    f -=2;
+                }
+            }
+            q.pop();
+        }
+        int i = 0;
+        while(ans[i] == '0'){
+            i++;
+        }
+        if(i==ans.size()) return "0";
+        return ans.substr(i,ans.size()-2*i);
+    }
+};
