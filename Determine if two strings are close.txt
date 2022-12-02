@@ -1,0 +1,37 @@
+class Solution {
+public:
+    bool closeStrings(string word1, string word2) {
+        if(word1.size() != word2.size()) return false;
+
+        //Algorithm:
+        //store their frequency in vector or in any other data structure 
+        //We have to check that every element of word1 is present in word 2 because we can swap elements but cannot create elements
+        //after that sort the frequency array. then compare frequencies one by one if frequency is not equal of any part then return false;
+        
+
+        vector<int>f1(26,0);
+        vector<int>f2(26,0);
+
+        for(auto i=0;i<word1.size();i++){
+            f1[word1[i]-'a']++;
+            f2[word2[i]-'a']++;
+        }
+        for(auto i=0;i<26;i++){
+            if(f1[i] == f2[i]) continue;
+
+            if(f1[i] == 0 || f2[i] == 0) return false; //checking if anyone is zero means that element is not present in 1 string so we have to return false beacuse we cannot create element ,only we can do swap of elements
+        }
+
+        //Or we can do like this
+        //Above one and this one can do similar work
+        // if(set(word1.begin(),word1.end()) != set(word2.begin(),word2.end())) return false;
+
+        sort(f1.begin(),f1.end());
+        sort(f2.begin(),f2.end());
+
+        for(int i=0;i<26;i++){
+            if(f1[i] != f2[i]) return false;
+        }
+        return true;
+    }
+};
