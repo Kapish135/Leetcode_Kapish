@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        unordered_map<char,int>m;
+
+        //Logic:
+        //First store the index of each element in map;
+        //we have to check that which element has maximum index through traversing on each element
+        //When maximum index == i then we has to make partition at that point.
+
+        //We take last = -1 because for first partition its always maximum index + 1, and after that we are updating  last to previous maximum index 
+        //Dry run this for better understanding
+        for(auto a=0;a < s.size();a++) m[s[a]] = a; ;
+        
+        int max_ = 0;
+        int last = -1;
+
+        vector<int>ans;
+        for(auto a=0;a < s.size();a++){
+            max_ = max(max_,m[s[a]]);
+
+            if(max_ == a){
+                ans.push_back(max_ - last);
+                last = max_;
+            }
+        }
+        return ans;
+    }
+};
