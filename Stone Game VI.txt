@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int stoneGameVI(vector<int>& a, vector<int>& b) {
+        // priority_queue<pair<int,int>>q1;
+        // priority_queue<pair<int,int>>q2;
+
+        // for(auto i=0;i<a.size();i++){
+        //     q1.push({a[i],i});
+        //     q2.push({b[i],i});
+        // }
+
+        // while(!q1.empty()){
+        //     if(q1.top().first > q2.top().first && )
+        // }
+
+        priority_queue<pair<int,int>>pq;
+
+        for(auto i=0;i<a.size();i++) pq.push({a[i]+b[i],i});
+
+        bool turn = true;
+        int alice=0,bob=0;
+        while(!pq.empty()){
+            if(turn) alice+= a[pq.top().second],turn =false;
+
+            else bob += b[pq.top().second],turn =true;
+
+            pq.pop();
+        }
+
+        if(alice > bob) return 1;
+        else if(alice == bob) return 0;
+
+        else return -1;
+    }
+};
