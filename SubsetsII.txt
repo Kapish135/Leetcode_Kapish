@@ -1,0 +1,29 @@
+class Solution {
+public:
+    map<vector<int>,int>m;
+    void helper(vector<vector<int>>&ans,vector<int>res,vector<int>nums,int start){
+
+        //isme res vector ko as a address pass kr rha hu to galat answer aa rha
+        if(start == nums.size()){
+            sort(res.begin(),res.end());
+            if(m.find(res) == m.end()){
+                m[res]++;
+                ans.push_back(res);
+            }
+            return;
+        }
+
+
+        res.push_back(nums[start]);
+        helper(ans,res,nums,start+1);
+        res.pop_back();
+        helper(ans,res,nums,start+1);
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        vector<vector<int>>ans;
+        vector<int>res;
+
+        helper(ans,res,nums,0);
+        return ans;
+    }
+};
