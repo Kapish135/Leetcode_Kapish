@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        vector<int>res(num1.size()+num2.size(),0);
+        int carry;
+        int prod;
+        for(int i=num1.size()-1;i>=0;i--){
+            carry=0;
+            for(int j = num2.size()-1;j>=0;j--){
+                res[i+j+1] += (num1[i]-'0')* (num2[j]-'0');
+                res[i+j] += (res[i+j+1])/10;
+                res[i+j+1] %=10;
+            }
+        }
+        int i = 0;
+        for(auto a:res) cout<<a<<" ";
+        while(i < res.size() && res[i] == 0) i++;
+
+
+        string ans ="";
+        while(i < res.size()) ans.push_back(res[i++]+'0');
+
+        return ans;
+    }
+};
