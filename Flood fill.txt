@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
+        if(image[sr][sc] == color) return image;
+        queue<pair<int,int>>q;
+
+        int m = image.size();
+
+        int n = image[0].size();
+
+        //Store the original value
+        int help = image[sr][sc];
+
+        //Give the color to the given index
+        image[sr][sc] = color;
+        q.push({sr,sc});
+
+        //4- directional Array
+        int drow[] = {-1,0,1,0};
+        int dcol[] = {0,1,0,-1};
+
+        while(!q.empty()){
+            int r = q.front().first;
+            int c = q.front().second;
+
+            q.pop();
+
+            for(int i=0;i<4;i++){
+                int nRow = r + drow[i];
+                int nCol = c + dcol[i];
+
+                if(nRow >=0 && nRow < m && nCol >= 0 && nCol < n && image[nRow][nCol] == help){
+                    image[nRow][nCol] = color;
+                    q.push({nRow,nCol});
+                }
+            }
+        }
+        return image;
+    }
+};
