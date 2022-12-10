@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int res = 0;
+        int fresh = 0;
+        int m = grid.size();
+        int n = grid[0].size();
+        queue<pair<int,int>>q;
+
+        for(auto a=0;a < m ; a++){
+            for(auto b=0;b < n;b++){
+                 if(grid[a][b] == 2) q.push({a,b});
+
+                 if(grid[a][b] == 1) fresh++;
+            }
+        }
+        int delRow[] = {-1,0,1,0};
+        int delCol[] = {0,1,0,-1};
+        bool flag;
+        while(!q.empty() && fresh > 0){
+
+
+            int size = q.size();
+
+            //we have to use another for loop because if 2 oranges are rotten in first time
+            //Then they can they both rot another apples which are 4 directionally adjacent to then.
+
+            //Dry run this example then you can under stand perfectly
+            /*
+            [2,1,1]
+            [1,1,1]
+            [0,1,2]
+            */
+            for(int j=0;j<size;j++){
+                int row  = q.front().first;
+                int col = q.front().second;
+                q.pop();
+                for(int i=0;i<4;i++){
+                    int nRow = row + delRow[i];
+                    int nCol = col + delCol[i];
+
+                    if(nRow >=0 && nRow < m && nCol >=0 && nCol < n && grid[nRow][nCol]==1){
+                        grid[nRow][nCol] = 2;
+                        q.push({nRow,nCol});
+                        fresh--;
+                    }
+                }
+            }
+            res++;
+        }
+       
+        return fresh == 0 ? res:-1;
+    }
+};
