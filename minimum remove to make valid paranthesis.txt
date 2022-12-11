@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        stack<pair<char,int>>st;
+        for(auto a=0;a<s.size();a++){
+            if(!st.empty() && s[a] == ')' && st.top().first == '('){
+                st.pop();
+            }
+            else if(s[a] == '(' || s[a] == ')') st.push({s[a],a});
+        }
+        vector<int>help;
+        while(!st.empty()){
+            help.push_back(st.top().second);
+            st.pop();
+        }
+        sort(help.begin(),help.end());
+        int i = 0;
+        string ans="";
+        for(auto a=0;a<s.size();a++){
+            if( i < help.size() && a == help[i]) {
+                i++;
+                continue;
+            }
+            ans += s[a];
+        }
+        return ans;
+    }
+};
