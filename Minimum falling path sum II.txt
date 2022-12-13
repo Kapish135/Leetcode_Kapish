@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int helper(vector<vector<int>>&matrix,int i,int j,int m,int n,vector<vector<int>>&dp){
+        if(i > m-1) return 0;
+        if(j > n-1 || j < 0 || i < 0) return 1e9;
+
+
+        int min_sum = INT_MAX;
+        if(dp[i][j] != -1) return dp[i][j];
+
+        for(int k = 0 ; k <matrix[0].size();k++){
+            if(k == j) continue;
+
+            int curr = matrix[i][j] + helper(matrix,i+1,k,m,n,dp);
+            min_sum = min(min_sum,curr);
+        }
+        return dp[i][j] = min_sum;
+    }
+    int minFallingPathSum(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        if(n == 1 && m == 1) return grid[0][0];
+        int min_sum = INT_MAX;
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+        for(int j=0;j < n;j++){
+            min_sum = min(min_sum,helper(grid,0,j,m,n,dp));
+        }
+        return min_sum;
+    }
+};
