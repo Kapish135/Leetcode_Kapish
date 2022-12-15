@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int findTheWinner(int n, int k) {
+        if (n == 1)
+        return 1;
+    else
+        return (findTheWinner(n - 1, k) + k-1) % n + 1;
+    }
+};
+// class Solution {
+// public:
+//     int findTheWinner(int n, int k) {
+//         vector<int>ans(n,0);
+
+//         for(int i=0;i < ans.size();i++) ans[i] = i+1;
+
+//         //In this we delete at index(k-1%ans.size()) because if k = 7 n = 5 then we have to delete second element 
+//         // 7-1%5 = 1 so this is the second element and after that we have to delete element at 1 + 2 index so we do help += k. so this is full logic dry run this to get perfect understanding
+//         int help = k;
+//         while(ans.size() > 1){
+//             help = (help-1) % ans.size();
+
+//             ans.erase(ans.begin() + help);
+
+//             help += k;
+//         }
+
+//         return ans[0];
+//     }
+// };
