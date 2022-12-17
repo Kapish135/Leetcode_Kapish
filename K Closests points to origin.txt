@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        typedef pair<int, vector<int>> pi;
+        priority_queue<pi,vector<pi>,greater<pi>>pq;
+
+        for(auto a:points){
+            int dis = a[0] * a[0] + a[1]*a[1];
+            cout<<dis<<" ";
+            pq.push({dis,a});
+        }
+        vector<vector<int>>ans;
+        while(k--){
+            ans.push_back(pq.top().second);
+            pq.pop();
+        }
+        return ans;
+    }
+};
