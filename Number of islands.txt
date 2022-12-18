@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int numIslands(vector<vector<char>>& grid) {
+        if (grid.size() == 0 || grid[0].size() == 0)
+            return 0;
+        auto m = grid.size(), n = grid[0].size();
+        auto ret = 0;
+        int drow[] = {-1,0,1,0};
+        int dcol[] = {0,1,0,-1};
+        for (int i = 0; i < m; ++i)
+        {
+            for (int j = 0; j < n; ++j)
+            {
+                if (grid[i][j] != '1')
+                    continue;
+                queue<pair<int, int>> bfs;
+                grid[i][j] = '2';
+                bfs.push({ i,j });
+                ret++;
+                while (bfs.size())
+                {
+                    auto current = bfs.front();
+                    bfs.pop();
+                    for (int k = 0;k<4;k++)
+                    {
+                        auto row = current.first + drow[k];
+                        auto col = current.second + dcol[k];
+                        if (0 <= row && row < m && 0 <= col && col < n && grid[row][col] == '1')
+                        {
+                            grid[row][col] = '2'; // mark this point visited
+                            bfs.push({ row, col });
+                        }
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+};
