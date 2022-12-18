@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+        if(s.size() < p.size()) return {};
+        int n = p.size();
+
+        vector<int>ans;
+        vector<int>help1(26,0);
+        vector<int>help2(26,0);
+
+        //Logic
+        //now we are checking that at first index is a anagram of string p
+        for(int i=0;i < n;i++){
+            help1[p[i]-'a']++;
+            help2[s[i]-'a']++;
+        }
+
+        if(help1 == help2) ans.push_back(0);
+
+        //after that we are checking from index 1
+        for(int i = n;i < s.size();i++){
+            help2[s[i - n] - 'a']--;//this represents the deletion of first character 
+            help2[s[i]-'a']++;//this represents the addition of next character
+
+            if(help1 == help2) ans.push_back(i - n + 1);//i-n+1 mean first index
+        }
+
+        //Dry run this example then you will get perfect understanding "cbaebabacd"
+        return ans;
+    }
+};
