@@ -1,0 +1,34 @@
+class Solution {
+public:
+    bool validPath(int n, vector<vector<int>>& edges, int source, int destination) {
+        vector<bool>visit(n,false);
+
+        vector<int>store[n];//this represents the n vectors of n size, initially all are empty
+        //also we can use map<int,vector<int>> here but its look different thats why i use it.
+
+        for(int i=0;i<edges.size();i++){
+            store[edges[i][0]].push_back(edges[i][1]);
+            store[edges[i][1]].push_back(edges[i][0]);
+        }
+
+        queue<int>q;
+        q.push(source);
+
+        while(!q.empty()){
+            int curr = q.front();
+
+            q.pop();
+
+            if(curr == destination) return true;//means we reach the destination
+
+            for(int i=0;i < store[curr].size();i++){
+
+                if(!visit[store[curr][i]]){
+                    q.push(store[curr][i]);
+                    visit[store[curr][i]] = true;
+                }
+            }
+        }
+        return false;
+    }
+};
