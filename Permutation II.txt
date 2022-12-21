@@ -1,0 +1,24 @@
+class Solution {
+public:
+    map<vector<int>,int>m;
+    void helper(vector<int>&nums,int begin,vector<vector<int>>&ans){
+        if(begin == nums.size()){
+            if(m.find(nums) == m.end()){
+                ans.push_back(nums);
+                m[nums]++;
+            }
+            return;
+        }
+
+        for(int i=begin;i < nums.size();i++){
+            swap(nums[i],nums[begin]);
+            helper(nums,begin+1,ans);
+            swap(nums[i],nums[begin]);
+        }
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        vector<vector<int>>ans;
+        helper(nums,0,ans);
+        return ans;
+    }
+};
