@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int maximumBags(vector<int>& capacity, vector<int>& rocks, int ar) {
+
+        //Dry run this solution then you get perfect understanding
+        for(int i = 0;i < rocks.size();i++){
+            rocks[i] = capacity[i] - rocks[i];
+        }
+
+        sort(rocks.begin(),rocks.end());
+
+        for(int i = 0;i < rocks.size();i++){
+            ar = ar - rocks[i];
+            if(ar < 0) break;
+            
+            rocks[i] = 0;
+        }
+        return count(rocks.begin(),rocks.end(),0);
+    }
+};
