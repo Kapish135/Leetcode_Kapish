@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<string> letterCombinations(string digits) {
+        if(digits.empty()){
+            return {};
+        }
+
+        //logic
+        //first push "" in vector
+        //after after that inner loop push("a","b","c") in vector after that swap empty and filled
+
+        // Dry run this for perfect understanding 
+        //main step is to swap empty array and filled array
+        unordered_map<int,string> map;
+        map[0] = "";
+        map[1] = "";
+        map[2] = "abc";
+        map[3] = "def";
+        map[4] = "ghi";
+        map[5] = "jkl";
+        map[6] = "mno";
+        map[7] = "pqrs";
+        map[8] = "tuv";
+        map[9] = "wxyz";
+        vector<string> v;
+        v.push_back("");
+        for(int i = 0;i<digits.size();i++){
+            vector<string> temp;
+            for(auto ele : map[digits[i]-'0']){
+                for(auto s : v){
+                    temp.push_back(s + ele);
+                }
+            }
+            v.swap(temp);
+        }
+        return v;
+    }
+};
