@@ -1,15 +1,12 @@
 class Solution {
 public:
     int minSwaps(string s) {
-        int bal = 0;
-        int cnt =0 ;
+        int bal = 0, cnt = 0;
 
         for(auto a:s){
             if(bal == 0 && a == ']') cnt++;
 
-            else{
-                bal += a == '['? 1 : -1;
-            }
+            else bal += a == '['? 1 : -1;
         }
         return (cnt+1)/2;
     }
