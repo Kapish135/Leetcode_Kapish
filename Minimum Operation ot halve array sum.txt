@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int halveArray(vector<int>& nums) {
+        long double sum=0;
+        for(auto a:nums) sum += a;
+        priority_queue<double>pq;
+        for(auto a:nums) pq.push(a);
+
+        int cnt = 0;
+        long double help_sum = sum;
+        while(sum > (help_sum/2.0)){
+            double top = pq.top();
+            pq.pop();
+            sum -= (top/2.0);
+            top -= (top/2.0);
+            pq.push(top);
+            cnt++;
+        }
+        return cnt;
+    }
+};
