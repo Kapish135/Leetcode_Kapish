@@ -1,0 +1,42 @@
+// class Solution {
+// public:
+//     int helper(vector<int>& prices,int i,int n,int min_,vector<int>&dp){
+//         if(i > n-1) return 0;
+
+//         if(dp[i] != -1) return dp[i];
+//         min_ = min(min_,prices[i-1]);
+//         int ans = prices[i]- min_  + helper(prices,i + 3,n,INT_MAX,dp);
+//         int ans1 = helper(prices,i+1,n,min_,dp);
+
+//         return dp[i] = max(ans,ans1);
+//     }
+//     int maxProfit(vector<int>& prices) {
+//         int n = prices.size();
+//         vector<int>dp(n,-1);
+//         // dp[0] = 0;
+//         int result = helper(prices,1,n,INT_MAX,dp);
+
+//         for(auto a:dp) cout<<a<<" ";
+//         return result;
+//     }
+// };
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        if(n<= 1)
+            return 0;
+        vector<int> noStock(n,0),inHand(n,0),sold(n,0);
+        noStock[0] = 0;
+        inHand[0] = -prices[0];
+        sold[0] = 0;
+        for(int i = 1;i<n;i++){
+            noStock[i] = max(noStock[i-1],sold[i-1]);
+            inHand[i] = max(inHand[i-1],noStock[i-1] - prices[i]);
+            sold[i] = inHand[i-1] + prices[i];
+        }
+        
+        return max(noStock[n-1],sold[n-1]);
+    }
+};
