@@ -5,7 +5,7 @@ int helper(vector<vector<int>>& grid,int i,int j,int m,int n){
 
         if(grid[i][j] == 2){
             for(auto a:grid){
-                for(auto b:a) if(b==0) return 0;
+                for(auto b:a) if(b==0) return 0;//we also do like that we can count number of zeros in a given grid, after every call do count+1, when count will equals to number of zeroes then return 1 else return 0;
             }
             return 1;
         }
@@ -15,7 +15,7 @@ int helper(vector<vector<int>>& grid,int i,int j,int m,int n){
         int ans2 = helper(grid,i,j+1,m,n);
         int ans3 = helper(grid,i+1,j,m,n);
         int ans4 = helper(grid,i,j-1,m,n);
-        grid[i][j] = 0;
+        grid[i][j] = 0;//this is the point where Backtracking comes in role
         
         return ans1 + ans2 + ans3 + ans4;
         
@@ -30,7 +30,7 @@ int helper(vector<vector<int>>& grid,int i,int j,int m,int n){
                     result = helper(grid,a,b,m,n);
                     break;
                 }
-                
+
             }
         }
         return result;
