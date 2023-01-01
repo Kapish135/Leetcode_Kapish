@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int helper(vector<int>&coins,int amount,vector<int>&dp){
+        int ans = 10001;
+        // if(sum > amount) return 0;
+
+        if(amount == 0) return 0;
+
+        if(dp[amount] != -1) return dp[amount];
+
+        for(int a = 0;a< coins.size();a++){
+            if(amount- coins[a] >= 0){
+                ans = min(ans,1 + helper(coins,amount-coins[a],dp));
+            }
+            dp[amount] = ans;
+        }
+        return dp[amount];
+    }
+    int coinChange(vector<int>& coins, int amount) {
+        if(amount == 0) return 0;
+        int n = coins.size();
+        vector<int>dp(10001,-1);
+        int res = helper(coins,amount,dp);
+        if(res == 10001) return -1;
+        return res;
+    }
+};
