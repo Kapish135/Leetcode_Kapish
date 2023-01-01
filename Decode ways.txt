@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int helper(string s,int i,vector<int>&dp,int n){
+        if(i < n && s[i] == '0') return 0;
+        if(i >= n) return 1;
+
+        if(dp[i] != -1) return dp[i];
+        int ans = helper(s,i+1,dp,n);
+
+        if(i + 1 < n && ((s[i] == '1' && s[i+1] <= '9') || (s[i] == '2' && s[i+1] <= '6'))) ans += helper(s,i+2,dp,n);
+
+        return dp[i] = ans;
+    }
+    int numDecodings(string s) {
+        int n = s.size();
+        vector<int>dp(s.size(),-1);
+        return helper(s,0,dp,n);
+    }
+};
