@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int distinctPrimeFactors(vector<int>& nums) {
+        int n = *max_element(nums.begin(),nums.end());
+        
+        bool prime[n + 1];
+        memset(prime, true, sizeof(prime));
+ 
+        for (int p = 2; p * p <= n; p++) {
+            if (prime[p] == true) {
+                for (int i = p * p; i <= n; i += p)
+                    prime[i] = false;
+            }
+        }
+        vector<int>primes;
+        int count = 0;
+        for (int p = 2; p <= n; p++){
+            if(prime[p]){
+                for(int j=0;j < nums.size();j++){
+                    if(nums[j] % p == 0){
+                        count++;
+                        break;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+};
