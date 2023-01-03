@@ -1,0 +1,33 @@
+class CustomStack {
+public:
+    vector<int>stack;
+    int i,j=0;
+    CustomStack(int maxSize) {
+        i = maxSize;
+    }
+    
+    void push(int x) {
+        if(j < i){
+            stack.push_back(x);
+            j++;
+        }
+    }
+    
+    int pop() {
+        if(stack.empty()) return -1;
+        
+        int ele = stack.back();
+        stack.pop_back();
+        j--;
+        return ele;
+    }
+    
+    void increment(int k, int val) {
+        if(k > stack.size()) k = stack.size();
+        int l = 0;
+        while(l < k){
+            stack[l] += val;
+            l++;
+        }
+    }
+};
