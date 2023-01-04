@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int minimumRounds(vector<int>& tasks) {
+        unordered_map<int,int>m;
+        
+        long long count = 0;
+        int extra = 0;
+        for(auto a:tasks) m[a]++;
+        
+        for(auto a:m){
+            while(a.second > 0){
+                if(a.second % 3 ==0){
+                    count += (a.second/3);
+                    a.second =0;
+                    break;
+                }
+                else if(a.second%2==0) {
+                    if(a.second > 4){
+                        count++;
+                        a.second -= 3;
+                    }
+                    else {
+                        count += a.second/2;
+                        a.second=0;
+                    }
+                }
+                else if(a.second > 2){
+                    a.second -= 3;
+                    count++;
+                    extra++;
+                }
+                else{ 
+                    count -= extra;
+                    return -1;
+                }
+            }
+        }
+        return count;
+    }
+};
