@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int helper(vector<int>&res,vector<vector<int>>&pairs,int n,int i,int prev,vector<vector<int>>&dp){
+        if(i >= n) return 0;
+
+        if(dp[i][prev+1] != -1) return dp[i][prev+1];
+
+        int ans1=0;
+        if(prev == -1 || pairs[i][0] > pairs[prev][1]){
+            // res.push_back(pairs[i][1]);
+            ans1 = 1 + helper(res,pairs,n,i+1,i,dp);
+            // res.pop_back();
+        }
+        int ans2 = helper(res,pairs,n,i+1,prev,dp);
+
+        return dp[i][prev+1] = max(ans1,ans2);
+    }
+    int findLongestChain(vector<vector<int>>& pairs) {
+        if(pairs.size() == 1) return 1;
+        int n = pairs.size();
+        sort(pairs.begin(),pairs.end());
+        vector<vector<int>>dp(n,vector<int>(n+1,-1));
+        vector<int>res;
+        int result =helper(res,pairs,n,0,-1,dp); 
+        return result;
+    }
+};
