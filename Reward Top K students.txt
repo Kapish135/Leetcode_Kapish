@@ -1,0 +1,58 @@
+class Solution {
+public:
+    vector<int> topStudents(vector<string>& pf, vector<string>& nf, vector<string>& re, vector<int>&sd, int k) {
+        unordered_map<string,int>m1;
+        unordered_map<string,int>m2;
+        
+        for(auto a:pf) m1[a]++;
+        for(auto a:nf) m2[a]++;
+        unordered_map<int,int>m;
+        int cnt;
+        for(auto a=0;a<re.size();a++){
+            cnt = 0;
+            // for(auto sub:pf) {
+            //     string st = re[a];
+            //     int pos = st.find(sub);
+            //     if(pos != -1) cnt += 3;
+            //     while(pos != -1){
+            //         st.erase(0,pos+1);
+            //         pos = st.find(sub);
+            //         cnt+=3;
+            //     }
+            // }
+            // for(auto sub:nf){
+            //     string st = re[a];
+            //     int pos = st.find(sub);
+            //     if(pos != -1) cnt--;
+            //     while(pos != -1){
+            //         st.erase(0,pos+1);
+            //         pos = st.find(sub);
+            //         cnt--;
+            //     }
+            // }
+
+            int l = 0, r = 0;
+            string t = re[a];
+            while( r < t.size()){
+                if(t[r] == ' '){
+                    string s = t.substr(l, r-l); //cout<<s<<endl;
+                    if(m1.find(s) != m1.end()) cnt += 3;
+                    else if(m2.find(s) != m2.end()) cnt -= 1;
+                    l = r+1;
+                }
+                r++;
+            }
+            string s = t.substr(l, r-l);
+            if(m1.find(s) != m1.end()) cnt += 3;
+            else if(m2.find(s) != m2.end()) cnt -= 1;
+            // pq.push({, student_id[i]});  
+            m[sd[a]] = cnt;
+        }
+        
+        partial_sort(sd.begin(), sd.begin() + k, sd.end(),[&](auto a,auto b){
+            return m[a] == m[b] ? a < b : m[b] < m[a];
+        });
+        sd.resize(k);
+        return sd;
+    }
+};
