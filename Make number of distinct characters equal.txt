@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool isItPossible(string word1, string word2) {
+        unordered_map<char,int>m1;
+        unordered_map<char,int>m2;
+        
+        for(auto a:word1) m1[a]++;
+        for(auto a:word2) m2[a]++;
+
+        for(auto i = 'a'; i <= 'z';i++){
+            if(m1.find(i) == m1.end()) continue;
+
+            for(auto j = 'a';j <= 'z';j++){
+                if(m2.find(j) == m2.end()) continue;
+
+                --m1[i];
+                if(m1[i] == 0) m1.erase(i);
+
+                --m2[j];
+                if(m2[j] == 0) m2.erase(j);
+
+                m1[j]++;
+                m2[i]++;
+
+                if(m1.size() == m2.size()) return true;
+
+                m2[i]--;
+                if(m2[i] == 0) m2.erase(i);
+
+                m1[j]--;
+                if(m1[j] == 0) m1.erase(j);
+
+                m2[j]++;
+                m1[i]++;
+            }
+        }
+        return false;
+    }
+};
