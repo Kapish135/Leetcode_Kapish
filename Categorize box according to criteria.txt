@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string categorizeBox(int l, int w, int h, int m) {
+        string ans = "";
+        if(l >= 10000 || w >= 10000 || h >= 10000) ans += "Bulky";
+        
+        long long int volume= l * 1ll * w * 1ll * h * 1ll;
+        
+        if(volume >= 1e9) ans += "Bulky";
+        
+        if(m >= 100) ans += "Heavy";
+        
+        if(ans.find("Bulky") != -1 && ans.find("Heavy") != -1) return "Both";
+        
+        if(ans.find("Bulky") == -1 && ans.find("Heavy") == -1) return "Neither";
+        
+        if(ans.find("Bulky") != -1 && ans.find("Heavy") == -1) return "Bulky";
+        
+        return "Heavy";
+    }
+};
