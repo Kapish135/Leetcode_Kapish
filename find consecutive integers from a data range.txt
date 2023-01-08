@@ -1,0 +1,19 @@
+class DataStream {
+public:
+    int n, val;
+    vector<int>ans;
+    int count = 0;
+    DataStream(int value, int k) {
+        n = k;
+        val = value;
+    }
+    
+    bool consec(int num) {
+        ans.push_back(num);
+        if(count !=0 && val != num) count = 0;
+        
+        if(val == num) count++;
+        if(count >= n) return true;
+        return false;
+    }
+};
