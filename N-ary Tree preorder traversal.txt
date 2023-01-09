@@ -1,0 +1,18 @@
+class Solution {
+public:
+    void helper(Node* root, vector<int>&ans){
+        for(int i = 0;i < root->children.size();i++){
+            ans.push_back(root->children[i]->val);
+            if(root->children[i]->children.size() > 0) helper(root->children[i],ans);
+
+        }
+
+    }
+    vector<int> preorder(Node* root) {
+        if(!root) return {};
+        vector<int>ans;
+        ans.push_back(root->val);
+        helper(root,ans);
+        return ans;
+    }
+};
