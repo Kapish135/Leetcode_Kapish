@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool equalFrequency(string word) {
+        unordered_map<char,int>m;
+        
+        for(auto a:word) m[a]++;
+        
+        for(char ch = 'a';ch <= 'z';ch++){
+            if(m.find(ch) != m.end()){
+                --m[ch];
+                if(m[ch] == 0) m.erase(ch);
+                
+                bool help = true;
+                bool ans = true;
+                int f;
+                for(auto k:m){
+                    if(help){
+                        f = k.second;
+                        help = false;
+                    }
+                    else if(k.second != f){
+                        ans = false;
+                        break;
+                    }
+                }
+                if(ans) return true;
+                m[ch]++;
+            }
+        }
+        
+        return false;
+    }
+};
