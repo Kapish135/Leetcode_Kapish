@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int total = 0;
+    void findTarget(TreeNode* &root,int target){
+        if(!root) return;
+
+        if(root->val == target && !root->left && !root->right){
+             root = NULL;
+             return;
+        }
+        findTarget(root->left,target);
+        findTarget(root->right,target);
+    }
+    void cntTarget(TreeNode* root,int target,int &count){
+        if(!root) return;
+
+        if(root->val == target) count++;
+        total++;
+        cntTarget(root->left,target,count);
+        cntTarget(root->right,target,count);
+    }
+    TreeNode* removeLeafNodes(TreeNode* root, int target) {
+        int count = 0;
+        cntTarget(root,target,count);
+        if(count == total) return {};
+
+        for(int i = 0;i < count; i++){
+            findTarget(root,target);
+        }
+        return root;
+    }
+};
