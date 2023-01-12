@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool helper(vector<int>&arr,int i,int n,vector<bool>&vis){
+        if(i >= n || i < 0) return false;
+
+        if(vis[i]) return false;
+
+        if(arr[i] == 0) return true;
+
+        vis[i] = true;
+        int ans1 = helper(arr,i + arr[i],n,vis);
+        int ans2 = helper(arr,i - arr[i],n,vis);
+        vis[i] = false;
+        return ans1 || ans2;
+    }
+    bool canReach(vector<int>& arr, int start) {
+        int n = arr.size();
+        vector<bool>vis(n,false);
+        return helper(arr,start,n,vis);
+    }
+};
