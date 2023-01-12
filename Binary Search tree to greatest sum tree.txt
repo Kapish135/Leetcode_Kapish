@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void calSum(TreeNode* root, int &sum){
+        if(!root) return;
+
+        sum += root->val;
+
+        calSum(root->left,sum);
+        calSum(root->right,sum);
+    }
+    void createAns(TreeNode* root,int &sum){
+        if(!root) return;
+
+        createAns(root->left,sum);
+
+        int val = root->val;
+        root->val = sum;
+        sum -= val;
+
+        createAns(root->right,sum); 
+    }
+    TreeNode* bstToGst(TreeNode* root) {
+        int sum = 0;
+        calSum(root,sum);
+        createAns(root,sum);
+        return root;
+    }
+};
