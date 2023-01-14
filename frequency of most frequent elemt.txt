@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int maxFrequency(vector<int>& nums, int k) {
+        
+        sort(nums.begin(),nums.end());
+        int left = 0;
+        long long int freq = 0;
+        int ans = 0;
+
+        //logic
+        //  Why is (j - i + 1) * A[j] - sum <= k valid?
+        // (j - i + 1) is the length of the window [i, j]. We want to increase all       the numbers in the window to equal A[j], the number of operations needed is (j - i + 1) * A[j] - sum which should be <= k. For example, assume the window is [1,2,3], increasing all the numbers to 3 will take 3 * 3 - (1 + 2 + 3) operations.
+
+        for(auto a = 0; a < nums.size();a++){
+
+            freq += nums[a];
+
+            while((long long)(a - left + 1)*nums[a] - freq > k){
+                freq -= nums[left++];
+            }
+            ans = max(ans,a - left + 1);
+
+        }
+        return ans;
+    }
+};
