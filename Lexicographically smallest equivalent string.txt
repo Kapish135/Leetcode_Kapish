@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string smallestEquivalentString(string s1, string s2, string baseStr) {
+
+        vector<char>arr(26);
+        int i =0;
+        for(auto a='a'; a<='z';a++) arr[i++] = a;
+
+        for(auto a=0;a < s1.size();a++){
+            char min_ = min(arr[s1[a] - 'a'],arr[s2[a]-'a']);
+            char max_ = max(arr[s1[a] - 'a'],arr[s2[a]-'a']);
+
+
+            for(auto a =0;a < 26;a++){
+                if(arr[a] == max_) arr[a] = min_;
+            }
+        }
+
+        for(auto a =0;a < baseStr.size();a++){
+            baseStr[a] = arr[baseStr[a] - 'a'];
+        }
+        return baseStr;
+    }
+};
