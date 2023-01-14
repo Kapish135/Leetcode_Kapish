@@ -1,0 +1,62 @@
+class Solution {
+public:
+    int longestBeautifulSubstring(string word) {
+        int max_ = 0;
+
+        // unordered_map<char,int>m;
+        // char max_ele = 'a';
+        // int len = 0;
+        // int left = 0;
+        // for(int i =0;i < word.size();i++){
+        //     if(word[left] != 'a') {
+        //         left++;
+        //         i = left;
+        //         max_ele = 'a';
+        //         // m.clear();
+        //         if(word[left] == 'a') m[word[i]]++;
+        //         len=1;
+        //         continue;
+        //     }
+
+        //     // if()
+        //     if(word[i] >= max_ele){
+        //         max_ele = word[i];
+        //         m[word[i]]++;
+        //         len++;
+        //     }
+        //     else{
+        //         // cout<<m.size()<<" ";
+        //         if(m.size() == 5){
+        //             max_ = max(max_,len);
+        //         }
+        //         max_ele = 'a';
+        //         len = 0;
+        //         m.clear();
+        //         if(word[i] == 'a') len=1,m[word[i]]++;
+        //         left++;
+        //         i = left;
+        //     }
+        //     if(i == word.size() - 1) {
+        //         cout<<m.size()<<" ";
+        //         if(m.size() >= 5){
+        //             max_ = max(len,max_);
+        //         }
+        //     }
+        //Above solution gives TLE
+        int len = 1;
+        int vowels = 1;
+
+        for(auto a = 1; a < word.size();a++){
+            if(word[a] ==word[a-1]) len++;
+
+            else if(word[a] > word[a-1]) len++,vowels++;
+
+            // else if(vowels == 5) max_ = max(len,max_);
+            
+            else vowels = 1,len = 1;
+
+            if(vowels == 5) max_ = max(len,max_);
+        }
+        return max_;
+    }
+};
