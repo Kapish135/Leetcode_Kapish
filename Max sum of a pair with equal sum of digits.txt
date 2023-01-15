@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int maximumSum(vector<int>& nums) {
+        // vector<int>ans;
+        // priority_queue<pair<int,int>>pq;
+        map<int,int>m;
+        int max_ = -1;
+        // for(auto i =0;i < nums.size();i++){
+        //     int ele_sum =0;
+        //     int a  = nums[i];
+        //     while(a){
+        //         ele_sum += a %10;
+        //         a = a/10;
+        //     }
+        //     if(m.find(ele_sum) != m.end()){
+        //         for(auto a:m[ele_sum]){
+        //             max_ = max(max_,nums[i] + nums[a]);
+        //         }
+        //     }
+        //     m[ele_sum].push_back(i);
+        // }
+        //Above Solution TLE
+
+        for(auto a:nums){
+            int ele_sum = 0;
+            int ele = a;
+            while(ele){
+                ele_sum += ele % 10;
+                ele = ele/10;
+            }
+            if(m.find(ele_sum) != m.end()){
+                max_ = max(max_,m[ele_sum] + a);
+                m[ele_sum] = max(m[ele_sum],a);
+            }
+            else m[ele_sum] = max(m[ele_sum],a);
+
+        }
+        return max_;
+    }
+};
