@@ -1,0 +1,56 @@
+class Solution {
+public:
+     double oddMedian(vector<int>& counts, int numSamples) {
+        int count = 0;
+        for (int i = 0; i < counts.size(); ++i) {
+            count += counts[i];
+            if (count > numSamples / 2) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    double evenMedian(vector<int>& counts, int numSamples) {
+        return (oddMedian(counts, numSamples) + oddMedian(counts, numSamples - 1)) / 2;
+    }
+    double medianSample(vector<int>& counts) {
+        int count = countSamples(counts);
+        bool isOdd = count % 2 == 1;
+        return isOdd ? oddMedian(counts, count) : evenMedian(counts, count);
+    }
+    int countSamples(vector<int>& counts) {
+        return accumulate(counts.begin(), counts.end(), 0);
+    }
+    vector<double> sampleStats(vector<int>& count) {
+        vector<double>ans;
+
+        unordered_map<int,int>m;
+        for(auto a=0; a < count.size();a++){
+            if(count[a] !=0) m[a] = count[a];
+        }
+
+        int min_ = INT_MAX;
+        int max_ = 0;
+        for(auto a:m) {
+            min_ = min(min_,a.first);
+            max_ = max(max_,a.first);
+        }
+        ans.push_back((double)(min_));
+        ans.push_back((double)(max_));
+        long long sum = 0;
+        int total = 0;
+        int mode = 0;
+        int cnt = 0;
+        for(auto a:m){
+            sum +=(a.first *1ll* a.second*1ll);
+            if(cnt < a.second) cnt = a.second,mode = a.first;
+            total += a.second;
+        }
+        ans.push_back((double)(sum)/(double)(total));
+
+        ans.push_back(medianSample(count));
+        ans.push_back((double)(mode));
+        return ans;
+    }
+};
