@@ -1,0 +1,8 @@
+class Solution {
+public:
+    double nthPersonGetsNthSeat(int n) {
+        //😂😂 nice
+        if(n == 1) return double(1);
+        return 0.50000;
+    }
+};
