@@ -1,6 +1,8 @@
 class Solution {
 public:
     long long countBadPairs(vector<int>& nums) {
+
+        //I am solving this equation j - i != A[j] - A[i]  like j - A[j] != i - A[i]  because it makes solution simpler
         unordered_map<int,int>m;
         long long count  = 0;
 

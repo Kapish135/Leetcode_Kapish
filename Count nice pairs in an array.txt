@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int countNicePairs(vector<int>& nums) {
+        unordered_map<int,int>m;
+
+        //I am solving this equation nums[i] + rev(nums[j]) == nums[j] + rev(nums[j]) like nums[i] - rev(nums[i]) == nums[j] - rev(nums[j]);
+        
+        int count = 0;
+        int mod = 1e9 + 7;
+        for(int i = 0;i < nums.size();i++){
+
+            int rev = 0;
+            int help = nums[i];
+            while(help > 0){
+                rev = rev * 10 + help %10;
+                help = help/10;
+            }
+            count = count % mod +  m[nums[i] - rev]++ % mod;
+        }
+        return count % mod;
+    }
+};
