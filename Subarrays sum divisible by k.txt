@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+        unordered_map<int,int>m;
+
+        m[0]++; //if whole array is divisble by k then prefix sum % k = 0;
+        //So we have to do m[0]++;
+
+        //if prefix Sum % k repeated then that will be the required subarray whose sum is divisible by k;
+        //Dry run this, so that you can get perfect understanding
+        int sum  = 0;
+        int ans = 0;
+        for(auto a:nums){
+            sum = (sum + a % k + k) % k;
+            ans += m[sum];
+            m[sum]++;
+        }
+        return ans;
+    }
+};
