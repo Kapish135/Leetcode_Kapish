@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string customSortString(string order, string s) {
+        unordered_map<char,int>m;
+        for(auto a:s) m[a]++;
+        string ans = "";
+        for(auto a:order){
+            if(m.find(a) != m.end()){
+                while(m[a] > 0){
+                    ans += a;
+                    --m[a];
+                }
+                m.erase(a);
+            }
+        }
+        for(auto a:m){ 
+            while(a.second > 0){
+                ans += a.first;
+                --a.second;
+            }
+        }
+        return ans;
+    }
+};
