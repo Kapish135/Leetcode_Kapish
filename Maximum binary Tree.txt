@@ -1,0 +1,38 @@
+class Solution {
+public:
+
+    // TreeNode* buildIt(int l, int h, vector<int>&nums){
+    //     if(l > h) return nullptr;
+    //     int max_ = INT_MIN;
+    //     int ind = 0;
+    //     for(auto a=l;a <= h ;a++){
+    //         if(nums[a] > max_) max_ = nums[a],ind = a;
+    //     }
+    //     TreeNode* root = new TreeNode(max_);
+
+    //     root->left = buildIt(l,ind-1,nums);
+    //     root->right = buildIt(ind+1,h,nums);
+
+    //     return root; 
+    // }
+    //Time Complexity O(n2);
+    TreeNode* constructMaximumBinaryTree(vector<int>& nums) {
+        stack<TreeNode*>s;
+
+        for(int i = 0; i < nums.size();i++){
+            TreeNode* root = new TreeNode(nums[i]);
+            while(!s.empty() && s.top() ->val < nums[i]){
+                root->left = s.top();
+                s.pop();
+            }
+            if(!s.empty()) s.top()->right = root;
+
+            s.push(root);
+        }
+
+        while(s.size() != 1) s.pop();
+        return s.top();
+        //TC O(n)
+    }
+
+};
