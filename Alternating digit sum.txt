@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int alternateDigitSum(int n) {
+        stack<int>s;
+        
+        while(n > 0){
+            int a = n%10;
+            s.push(a);
+            n = n /10;
+        }
+        
+        int i = 0;
+        int ele_sum = 0;
+        while(!s.empty()){
+            if(i % 2 == 0) ele_sum += s.top();
+            else ele_sum -= s.top();
+            s.pop(), i++;
+        }
+        return ele_sum;
+    }
+};
