@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool isAlienSorted(vector<string>& words, string order) {
+        unordered_map<char,int>m;
+
+        for(auto i=0;i < order.size();i++) m[order[i]] = i;
+
+        for(int i =0;i < words.size()-1;i++){
+
+            if(words[i] == words[i+1]) continue;
+
+            int j =0,k = 0;
+
+            bool ans = false;
+            while(j < words[i].size() && k < words[i+1].size()){
+
+                if(m[words[i][j]] > m[words[i+1][k]]) return false;
+
+                else if(m[words[i][j]] == m[words[i+1][k]]) j++,k++;
+
+                else {
+                    ans = true;
+                    break; 
+                }
+            }
+            if(!ans && words[i].size() > words[i+1].size()) return false;
+        }
+        return true;
+    }
+};
