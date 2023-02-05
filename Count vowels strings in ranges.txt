@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> vowelStrings(vector<string>& word, vector<vector<int>>& queries) {
+        int n = word.size();
+
+        vector<int>freq(n,0);
+
+        unordered_map<char,int>m;
+
+        m['a']++,m['e']++,m['i']++,m['o']++,m['u']++;
+
+        for(auto i =0;i < n;i++){
+            int j = word[i].size()-1;
+            if(m.count(word[i][0]) && m.count(word[i][j])) freq[i]++;
+        }
+        
+        for(int i = 1;i < n; i++) freq[i] = freq[i-1] + freq[i];
+        
+        vector<int>ans;
+        for(auto a:queries){
+            if(a[0] == 0) ans.push_back(freq[a[1]]);
+            else ans.push_back(freq[a[1]] - freq[a[0]-1]);
+        }
+        return ans;
+    }
+};
