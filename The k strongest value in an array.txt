@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> getStrongest(vector<int>& arr, int k) {
+        sort(arr.begin(),arr.end());
+        int n = arr.size();
+
+        int med = arr[(n-1)/2];
+
+        vector<int>ans;
+        int i = 0,j = arr.size()-1;
+        while(k--){
+            if(abs(med- arr[i]) > abs(med - arr[j])) ans.push_back(arr[i++]);
+            else ans.push_back(arr[j--]);
+        }
+        return ans;
+    }
+};
