@@ -1,0 +1,26 @@
+class BrowserHistory {
+public:
+    vector<string>ans;
+    int x = 0;
+    bool check = false;
+    BrowserHistory(string homepage) {
+        ans.push_back(homepage);
+    }
+    
+    void visit(string url) {
+        x++;
+        ans.resize(x);
+        ans.push_back(url);
+    }
+    
+    string back(int steps) {
+        x = max(0,x - steps);
+        return ans[x];
+    }
+    
+    string forward(int steps) {
+        cout<<ans.size()-1<<" ";
+        x = min((int)ans.size() -1,x + steps);
+        return ans[x];
+    }
+};
