@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits) {
+        int n = fruits.size();
+        int max_ = 0;
+        int cnt = 0;
+
+        unordered_map<int,int>m;
+
+        int prev = 0;
+        for(int i = 0;i < n;i++){
+            m[fruits[i]]++;
+            if(m.size() > 2){
+                m[fruits[prev]]--;
+
+                if(m[fruits[prev]] ==0) m.erase(fruits[prev]);
+                prev++;
+            }
+            else{
+                cnt = 0;
+                for(auto a:m) cnt += a.second;
+                max_ = max(cnt,max_);
+            }
+        }
+        return max_;
+    }
+};
