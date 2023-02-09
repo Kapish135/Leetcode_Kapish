@@ -1,0 +1,26 @@
+class Solution {
+    public long distinctNames(String[] ideas) {
+        HashSet<String>[] s = new HashSet[26];
+
+        for(int i =0;i < 26;i++) s[i] = new HashSet<>();
+
+        for(String a: ideas){
+            s[a.charAt(0) - 'a'].add(a.substring(1));
+        }
+
+        long ans = 0;
+        for(int i = 0;i < 26;i++){
+            for(int j = i + 1;j < 26;j++){
+                long count = 0;
+
+                for(String a:s[i]){
+                    if(s[j].contains(a)) count++;
+                }
+
+
+                ans += (s[i].size() - count) * (s[j].size()-count) * 2;
+            }
+        }
+        return ans;
+    }
+}
