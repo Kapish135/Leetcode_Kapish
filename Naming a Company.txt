@@ -1,3 +1,4 @@
+JAVA Implementation
 class Solution {
     public long distinctNames(String[] ideas) {
         HashSet<String>[] s = new HashSet[26];

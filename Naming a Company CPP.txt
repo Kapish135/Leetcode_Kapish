@@ -1,0 +1,45 @@
+class Solution {
+public:
+    long long distinctNames(vector<string>& ideas) {
+        // unordered_map<string,int>m;
+
+        // for(auto a:ideas) m[a]++;
+
+        // int count = 0;
+        // for(int i = 0;i < ideas.size();i++){
+        //     for(int j = i+1;j < ideas.size();j++){
+        //         char s = ideas[i][0];
+        //         char s1 = ideas[j][0];
+
+        //         ideas[i][0] = s1;
+        //         ideas[j][0] = s;
+
+        //         if(m.find(ideas[i]) == m.end() && m.find(ideas[j]) == m.end()) count++;
+
+        //         ideas[i][0] = s;
+        //         ideas[j][0] = s1;
+        //     }
+        // }
+        // return count * 2;
+        unordered_set<string>s[26];
+
+        for(auto a:ideas) s[a[0]-'a'].insert(a.substr(1));
+
+        long long answer = 0;
+        for(int i =0;i < 26;i++){
+            for(int j = i +1;j < 26;j++){
+                long long cnt = 0, cnt1 = 0;
+
+                for(auto a:s[i]){
+                    if(!s[j].count(a)) cnt++;
+                }
+
+                for(auto a:s[j]){
+                    if(!s[i].count(a)) cnt1++;
+                }
+                answer += (cnt * cnt1 * 2);
+            }
+        }
+        return answer;
+    }
+};
