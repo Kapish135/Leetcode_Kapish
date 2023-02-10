@@ -1,0 +1,37 @@
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        if(!root) return "";
+
+        return to_string(root->val)+"+" +serialize(root->left) + serialize(root->right);
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(string data) {
+        TreeNode* root = NULL;
+        stringstream str(data);
+
+        //stringstream reads the data from entered string
+        //getline() first parameter is the traversing string, 2nd parameter is the string in which char from first string added until third parameter(delim char) meets
+        string item;
+        while(getline(str,item,'+')){
+            root = insert(root,stoi(item));
+        }
+        return root;
+    }
+
+    TreeNode* insert(TreeNode* root,int val){
+        TreeNode* newNode = new TreeNode(val);
+        if(!root) return newNode;
+
+        if(val <= root->val){
+            root->left = insert(root->left,val);
+        }
+        if(val > root->val){
+            root->right = insert(root->right,val); 
+        }
+        return root;
+    }
+};
