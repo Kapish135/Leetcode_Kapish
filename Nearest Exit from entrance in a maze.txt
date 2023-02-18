@@ -1,0 +1,41 @@
+class Solution {
+public:
+
+    int nearestExit(vector<vector<char>>& maze, vector<int>& e) {
+
+        int m = maze.size();
+        int n = maze[0].size();
+
+        queue<pair<pair<int,int>,int>>q;
+
+        q.push({{e[0],e[1]},0});
+
+        auto is_exit = [&](int i,int j) -> int{
+            return (i != e[0] || j!=e[1]) && (i*j==0 || i==m-1 || j==n-1);
+        };
+        
+        int drow[] = {-1,0,1,0};
+	    int dcol[] = {0,1,0,-1};
+        while(!q.empty()){
+            int row = q.front().first.first;
+	        int col = q.front().first.second;
+	        int steps = q.front().second;
+
+            q.pop();
+
+            for(int i =0;i < 4;i++){
+                int nr = row + drow[i];
+	            int nc = col + dcol[i];
+
+                if(nr >= 0 && nc >= 0 && nr < m && nc < n && maze[nr][nc] != '+'){
+
+                    if(is_exit(nr,nc)) return steps + 1;
+
+                    maze[nr][nc] = '+';
+                    q.push({{nr,nc},steps + 1});
+                }
+            }
+        }
+        return -1;
+    }
+};
