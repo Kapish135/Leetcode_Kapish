@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int shipWithinDays(vector<int>& w, int d) {
+        // int sum = 0;
+        // for(auto a:w) sum += a;
+
+        // int avg = sum/(d);
+        // cout<<avg<<" ";
+        // int max_ = INT_MIN;
+
+        // int s = 0;
+        // for(int i = 0;i < w.size();i++){
+        //     s += w[i];
+        //     // co
+        //     if(s == avg || s > avg){
+        //         max_ = max(s,max_);
+        //         s = 0;
+        //     }
+        // }
+        // return max_;f
+        int s = *max_element(w.begin(),w.end());
+        int e = accumulate(w.begin(),w.end(),0);
+
+        int ans = e;
+        while(s <= e){
+            int days = 1;
+            int curr = 0;
+
+            int mid = (s + (e-s)/2);
+            for(auto a:w){
+                if(curr + a > mid){
+                    days++;
+                    curr = 0;
+                }
+                curr += a;
+            }
+
+            if(days <= d) ans = mid,e = mid - 1;
+
+            else s = mid + 1;
+        }
+        return ans;
+    }
+};
