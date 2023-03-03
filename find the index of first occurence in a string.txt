@@ -1,0 +1,63 @@
+class Solution {
+public:
+    int ans = -1;
+    void computeLpsArray(vector<int>&lps,int M,string pat ){
+    
+    int i = 1;
+    lps[0] = 0;
+    int len = 0;
+    while(i < M)
+    {
+        if(pat[i] == pat[len]){
+            len++;
+            lps[i] = len;
+            i++;
+        }
+        
+        else {
+            if(len != 0){
+                len = lps[len - 1];
+            }
+            else{
+                lps[i] = 0;
+                i++;
+            }
+        }
+    }
+}
+    void calculate(string txt, string pat){
+    int n = txt.size();
+    int m = pat.size();
+    
+    int i = 0;
+    int j = 0;
+    vector<int>lps(m,0);
+    computeLpsArray(lps,m,pat);
+    while(i < n){
+        
+        if(txt[i] == pat[j]){
+            i++;
+            j++;
+        }
+        
+        if(j == m){
+            cout <<(i - m)<<" ";
+            ans = i-m;
+            break;
+        }
+        
+        else if(i < n){
+            if(txt[i] != pat[j]){
+                if(j  > 0){
+                    j = lps[j-1];
+                }
+                else i++;
+            }
+        }
+    }
+}
+    int strStr(string haystack, string needle) {
+        calculate(haystack,needle);
+        return ans;
+    }
+};
