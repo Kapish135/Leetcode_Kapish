@@ -1,0 +1,14 @@
+class Solution {
+public:
+    vector<int> divisibilityArray(string word, int m) {
+        long long rem = 0;
+        vector<int>div;
+        for(auto a:word){
+            long long dig = rem * 10 + (a-'0');
+            if(dig % m == 0) div.push_back(1);
+            else div.push_back(0);
+            rem = dig % m;
+        }
+        return div;
+    }
+};
