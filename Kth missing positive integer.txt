@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int findKthPositive(vector<int>& arr, int k) {
+        // unordered_map<int,int>m;
+
+        // for(auto a:arr) m[a]++;
+
+        // int i=1;
+        // while(k > 0){
+        //     if(m.count(i)){ i++;continue;}
+        //     else k--;
+
+        //     if(k == 0) return i;
+        //     i++;
+        // }
+        // return -1;
+        int s = 0,e = arr.size()-1;
+        while(s <= e){
+            int mid = s + (e - s)/2;
+
+            if(arr[mid] - (mid + 1) < k) s = mid + 1;
+            
+            else e = mid - 1;
+        }
+        return s + k;
+    }
+};
