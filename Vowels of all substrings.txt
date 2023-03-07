@@ -1,0 +1,19 @@
+class Solution {
+public:
+    long long countVowels(string word) {
+//         For each vowels s[i],
+// it could be in the substring starting at s[x] and ending at s[y],
+// where 0 <= x <= i and i <= y < n,
+// that is (i + 1) choices for x and (n - i) choices for y.
+
+// So there are (i + 1) * (n - i) substrings containing s[i].
+        long long ans = 0;
+        int n = word.size();
+        for(long long a=0;a < n;a++){
+            if(string("aeiou").find(word[a]) != string :: npos){
+                ans += (a + 1) * (n - a);
+            }
+        }
+        return ans;
+    }
+};
