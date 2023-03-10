@@ -1,0 +1,15 @@
+class Solution {
+public:
+    vector<int>help;
+    Solution(vector<int>& nums) {
+        help = nums;
+    }
+    
+    int pick(int target) {
+        while(true){
+            int ans = rand() % help.size();
+            if(help[ans] == target) return ans;
+        }
+        return -1;
+    }
+};
