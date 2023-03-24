@@ -1,0 +1,39 @@
+class Solution {
+public:
+    map<int,vector<int>>m;
+
+    void bfs(int src,int vis[]){
+        queue<int>q;
+        q.push(src);
+        while(!q.empty()){
+            int top = q.front();
+
+            q.pop();
+            if(vis[top] == 0){
+                vis[top] = 1;
+                for(int i = 0;i < m[top].size();i++){
+                    q.push(m[top][i]);
+                }
+            }
+        }
+    }
+    int makeConnected(int n, vector<vector<int>>& con) {
+        if(con.size() < n-1) return -1;
+
+        for(auto a:con){
+            m[a[0]].push_back(a[1]);
+            m[a[1]].push_back(a[0]);
+        }
+
+        int vis[n];
+        for(int i = 0;i < n;i++) vis[i] = 0;
+        int ans = 0;
+        for(int i = 0;i < n;i++){
+            if(vis[i] == 0){
+                bfs(i,vis);
+                ans++;
+            }
+        }
+        return ans-1;
+    }
+};
