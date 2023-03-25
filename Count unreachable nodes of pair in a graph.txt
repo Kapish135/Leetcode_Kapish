@@ -1,0 +1,30 @@
+class Solution {
+public:
+    unordered_map<int,vector<int>>m;
+    void dfs(int src,vector<bool>&vis,int &count){
+        vis[src] = true;
+        count++;
+        for(auto a:m[src]){
+            if(!vis[a]) dfs(a,vis,count);
+        }
+    }
+    long long countPairs(int n, vector<vector<int>>& edges) {
+        long long ans = ((long long)(n) * (long long)(n-1))/2;
+
+        vector<bool>vis(n,false);
+        for(auto a:edges){
+            m[a[0]].push_back(a[1]);
+            m[a[1]].push_back(a[0]);
+        }
+        int cnt = 0;
+        vector<long long>help;
+        for(int i = 0;i < n;i++){
+            if(!vis[i]){
+                dfs(i,vis,cnt);
+                ans -= ((long long)(cnt)*(long long)(cnt-1)/2);
+                cnt = 0;
+            }
+        }
+        return ans;
+    }
+};
