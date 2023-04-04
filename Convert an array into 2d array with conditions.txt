@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<vector<int>> findMatrix(vector<int>& nums) {
+        unordered_map<int,int>m;
+        
+        for(auto a:nums) m[a]++;
+        
+        vector<vector<int>>ans;
+
+        while(m.size() > 0){
+            vector<int>help;
+            for(auto a:m) help.push_back(a.first);
+
+            for(auto a:help) if(--m[a]==0) m.erase(a);
+
+            ans.push_back(help);
+        }
+        return ans;
+    }
+};
