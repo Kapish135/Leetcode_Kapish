@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int miceAndCheese(vector<int>& r1, vector<int>& r2, int k) {
+       vector<pair<int,int>>help;
+       int ans = 0;
+       for(auto a = 0;a < r1.size();a++) help.push_back({r1[a],r2[a]});
+
+       sort(help.begin(),help.end(),[&](auto a,auto b){
+           return a.second-a.first < b.second-b.first;
+       });
+       for(auto a=0;a < help.size();a++){
+           if(a < k) ans += help[a].first;
+           else ans += help[a].second;
+       }
+       return ans;
+    }
+};
