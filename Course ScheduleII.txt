@@ -1,3 +1,4 @@
+//Solution1
 class Solution {
 public:
     unordered_map<int,vector<int>>m;
@@ -52,6 +53,50 @@ public:
         while(!st.empty()){
             ans.push_back(st.top());
             st.pop();
+        }
+        return ans;
+    }
+};
+
+//Solution 2
+
+class Solution {
+public:
+    unordered_map<int,vector<int>>m;
+    bool checkCycleAndTopSort(int src,vector<bool>&vis,vector<bool>&pathVis,stack<int>&st){
+        vis[src] = true;
+        pathVis[src] = true;
+        for(auto a:m[src]){
+            if(vis[a] == false){
+                if(checkCycleAndTopSort(a,vis,pathVis,st)) return true;
+            }
+            else if(pathVis[a]) return true;
+        }
+        st.push(src);
+        pathVis[src] = false;
+        return false;
+    }
+    vector<int> findOrder(int numCourses, vector<vector<int>>& pre) {
+
+        for(auto a:pre) m[a[1]].push_back(a[0]);
+        bool cycle = false;
+        vector<bool>vis(numCourses,false);
+        vector<bool>pathVis(numCourses,false);
+        stack<int>st;
+        for(int i = 0;i < numCourses;i++){
+            if(!vis[i]) {
+                if(checkCycleAndTopSort(i,vis,pathVis,st)) {
+                    cycle = true;
+                    break;
+                }
+            }
+        }
+        vector<int>ans;
+        if(!cycle){
+            while(!st.empty()){
+                ans.push_back(st.top());
+                st.pop();
+            }
         }
         return ans;
     }
