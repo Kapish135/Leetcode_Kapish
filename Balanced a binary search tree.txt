@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<TreeNode*>array;
+    void inorderBst(TreeNode* root){
+        if(!root) return;
+        inorderBst(root->left);
+        array.push_back(root);
+        inorderBst(root->right);
+    }
+    TreeNode* findAns(int s,int e){
+        if(s > e) return NULL;
+
+        int mid = (s + e)/2;
+        TreeNode* root = array[mid];
+        root->left = findAns(s, mid - 1);
+        root->right = findAns(mid + 1, e);
+        return root;
+    }
+    TreeNode* balanceBST(TreeNode* root) {
+        inorderBst(root);
+
+        return findAns(0,array.size() - 1);
+    }
+};
