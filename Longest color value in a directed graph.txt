@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<int> dfs(unordered_map<int,vector<int>>&m,vector<int>&vis,vector<vector<int>>&dp,string &colors,int src){
+        if(dp[src].size() > 0) return dp[src];
+        vector<int>freq(26,0);
+        // vis[src] = 1;
+        for(auto a:m[src]){
+
+            auto check = dfs(m,vis,dp,colors,a);
+            // if(check[0] == INT_MAX && check[1] == INT_MAX) return dp[a] = {INT_MAX,INT_MAX};
+            for(int i = 0;i < 26;i++){
+                freq[i] = max(freq[i],check[i]);
+            }
+            // if(vis[src] == 1) return dp[a] = {INT_MAX,INT_MAX};
+        }
+        // vis[src] = 0;
+        freq[colors[src]-'a']++;
+        return dp[src] = freq;
+    }
+    bool checkCycle(vector<int>&vis,vector<int>&pathVis,unordered_map<int,vector<int>>&m,int src){
+        vis[src] = 1;
+        pathVis[src] = 1;
+
+        for(auto a:m[src]){
+            if(!vis[a]) {
+                if(checkCycle(vis,pathVis,m,a)) return true;
+            }
+            else if(pathVis[a] == 1) return true;
+        }
+        pathVis[src] = 0;
+        return false;
+    }
+    int largestPathValue(string colors, vector<vector<int>>& edges) {
+        int n =colors.size();
+        vector<int>vis(n,0);
+        vector<int>pathVis(n,0);
+        unordered_map<int,vector<int>>m;
+        for(auto a:edges) m[a[0]].push_back(a[1]);
+        vector<vector<int>>dp(n,vector<int>(0));
+        for(int i = 0;i < n;i++){
+            if(!vis[i]){
+                if(checkCycle(vis,pathVis,m,i)) return -1;
+            }
+        }
+        fill(vis.begin(),vis.end(),0);
+        int ans = 0 ;
+        for(int i = 0;i < n;i++){
+            if(!vis[i]){
+                auto arr = dfs(m,vis,dp,colors,i);
+                if(arr[0] == INT_MAX && arr[1] == INT_MAX) return -1;
+                ans = max(ans,*max_element(arr.begin(),arr.end()));
+            }
+        }
+        return ans;
+    }
+};
