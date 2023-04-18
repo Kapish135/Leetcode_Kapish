@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string mergeAlternately(string w1, string w2) {
+        if(w1.empty()) return w2;
+        if(w2.empty()) return w1;
+
+        int i = 0;
+        int j = 0;
+        string ans = "";
+        int check = 0;
+        while(i < w1.size() && j < w2.size()){
+            if(check %2 == 0){
+                ans += w1[i];
+                i++;
+            }
+            else{
+                ans += w2[j];
+                j++;
+            }
+            check++;
+        }
+        if(j >= w2.size()) ans += w1.substr(i);
+        if(i >= w1.size()) ans += w2.substr(j);
+        return ans;
+    }
+};
