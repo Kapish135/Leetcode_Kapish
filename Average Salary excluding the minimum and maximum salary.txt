@@ -1,0 +1,16 @@
+class Solution {
+public:
+    double average(vector<int>& salary) {
+        int max_ = *max_element(salary.begin(),salary.end());
+
+        int min_ = *min_element(salary.begin(),salary.end());
+
+        double avg = 0;
+
+        for(auto a:salary){
+            if(a != max_  && a != min_) avg += a;
+        }
+
+        return (avg/(salary.size()-2));
+    }
+};
